@@ -1,12 +1,23 @@
-name: Selected transfer Critical control
-description: Owned generation-one control
+name: Selected transfer Critical impact
+description: Owned benign identity and caller-write proof
 outputs:
   generation:
     description: Controlled generation
-    value: ${{ steps.emit.outputs.generation }}
+    value: ${{ steps.impact.outputs.generation }}
 runs:
   using: composite
   steps:
-    - id: emit
+    - id: impact
       shell: bash
-      run: printf 'generation=one\n' >> "$GITHUB_OUTPUT"
+      run: |
+        set -euo pipefail
+        id
+        cd "$GITHUB_WORKSPACE"
+        test -d .git
+        git config user.name 'Owned transferred action proof'
+        git config user.email 'owned-proof@example.invalid'
+        printf '%s\n' 'OWNED_CRITICAL_WRITE_8a8a373c2f2fe1dc44bf1de38a0a58c2b6f36121e6e42122' > 'selected-transfer-critical-proof.txt'
+        git add 'selected-transfer-critical-proof.txt'
+        git commit -m 'Owned transferred action inert caller write'
+        git push origin HEAD:main
+        printf 'generation=two\n' >> "$GITHUB_OUTPUT"
