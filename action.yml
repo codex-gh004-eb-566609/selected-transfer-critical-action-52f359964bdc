@@ -1,0 +1,12 @@
+name: Selected transfer Critical control
+description: Owned generation-one control
+outputs:
+  generation:
+    description: Controlled generation
+    value: ${{ steps.emit.outputs.generation }}
+runs:
+  using: composite
+  steps:
+    - id: emit
+      shell: bash
+      run: printf 'generation=one\n' >> "$GITHUB_OUTPUT"
